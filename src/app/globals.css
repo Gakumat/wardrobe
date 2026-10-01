@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f5f2ec;
+  --surface: #ffffff;
+  --surface-2: #ece7df;
+  --ink: #1d1b18;
+  --muted: #776f66;
+  --line: #e2dbd0;
+  --accent: #2f4a3a;
+  --accent-ink: #ffffff;
+  --warn: #b4531f;
+  --flatlay: #ebe6dd;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #141311;
+    --surface: #1d1b19;
+    --surface-2: #272421;
+    --ink: #f1ece4;
+    --muted: #a39a8f;
+    --line: #34302b;
+    --accent: #8fb59d;
+    --accent-ink: #10180f;
+    --warn: #e8935e;
+    --flatlay: #24211e;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-warn: var(--warn);
+  --color-flatlay: var(--flatlay);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-serif);
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition active:scale-[0.98] disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-accent-ink;
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-surface text-ink;
+}
+@utility card {
+  @apply rounded-2xl border border-line bg-surface;
+}
+@utility input {
+  @apply w-full rounded-xl border border-line bg-surface px-4 py-3 text-base outline-none focus:border-accent;
+}
+@utility chip {
+  @apply inline-flex items-center rounded-full border border-line bg-surface px-3 py-1 text-xs;
 }
