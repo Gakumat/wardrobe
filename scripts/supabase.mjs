@@ -18,8 +18,9 @@ for (const k of ["SUPABASE_ACCESS_TOKEN", "SUPABASE_DB_PASSWORD", "SUPABASE_PROJ
 }
 
 let args = process.argv.slice(2);
-if (args[0] === "link") args = ["link", "--project-ref", env.SUPABASE_PROJECT_REF, "--password", env.SUPABASE_DB_PASSWORD];
-else if (args[0] === "db" && args[1] === "push") args = [...args, "--password", env.SUPABASE_DB_PASSWORD];
+// The CLI reads SUPABASE_DB_PASSWORD / SUPABASE_ACCESS_TOKEN from the environment, which avoids
+// shell-quoting problems with special characters in the password.
+if (args[0] === "link") args = ["link", "--project-ref", env.SUPABASE_PROJECT_REF];
 else if (args[0] === "config" && args[1] === "push") args = [...args, "--project-ref", env.SUPABASE_PROJECT_REF];
 
 const r = spawnSync("npx", ["supabase", ...args], { stdio: "inherit", env, shell: true });
