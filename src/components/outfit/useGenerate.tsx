@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Category } from "@/lib/schema/item";
-import type { Source } from "@/lib/schema/outfit";
+import type { OutfitView, Source } from "@/lib/schema/outfit";
 import type { Place } from "@/lib/location";
 
 export type GenerateBody = {
@@ -14,7 +14,9 @@ export type GenerateBody = {
   chat?: { messages: { role: "user" | "assistant"; content: string }[]; baseOutfitId?: string | null };
 };
 
-export async function requestOutfit(body: GenerateBody): Promise<{ id: string; reply: string | null }> {
+export async function requestOutfit(
+  body: GenerateBody,
+): Promise<{ id: string; reply: string | null; outfit: OutfitView | null }> {
   const res = await fetch("/api/outfits/generate", {
     method: "POST",
     headers: { "content-type": "application/json" },

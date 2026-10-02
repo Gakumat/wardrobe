@@ -27,6 +27,24 @@ export async function sendLink(_prev: LoginState, form: FormData): Promise<Login
   return { step: "sent", email };
 }
 
+export async function signInWithPassword(_prev: LoginState, form: FormData): Promise<LoginState> {
+  const email = String(form.get("email") ?? "").trim().toLowerCase();
+  const password = String(form.get("password") ?? "");
+  if (!isAllowed(email)) return { step: "email", email, error: "That email isn't allowed on this wardrobe." };
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    return {
+      step: "email",
+      email,
+      error: /invalid/i.test(error.message)
+        ? "Wrong password, or no password set yet. Set one in Settings after signing in with an email link."
+        : error.message,
+    };
+  }
+  redirect("/");
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

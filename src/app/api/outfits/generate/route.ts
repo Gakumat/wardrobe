@@ -3,6 +3,7 @@ import { z } from "zod";
 import { ClaudeError } from "@/lib/claude";
 import { CATEGORY_IDS } from "@/lib/schema/item";
 import { composeOutfit, ComposeError } from "@/lib/outfits/compose";
+import { loadOutfit } from "@/lib/outfits/load";
 import { requireUser, UnauthorizedError } from "@/lib/supabase/server";
 
 export const maxDuration = 120;
@@ -31,7 +32,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Pick or type a vibe first." }, { status: 400 });
     }
     const result = await composeOutfit(supabase, body);
-    return NextResponse.json(result);
+    // Chat renders the outfit inline, so send it back with the reply.
+    const outfit = body.source === "chat" ? await loadOutfit(supabase, result.id) : null;
+    return NextResponse.json({ ...result, outfit });
   } catch (e) {
     if (e instanceof UnauthorizedError) return NextResponse.json({ error: e.message }, { status: 401 });
     if (e instanceof ComposeError || e instanceof ClaudeError) {

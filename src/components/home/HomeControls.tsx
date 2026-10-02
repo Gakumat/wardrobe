@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Icon } from "@/components/Icon";
 import { GeneratingOverlay, useGenerate } from "@/components/outfit/useGenerate";
@@ -106,6 +107,18 @@ export function HomeControls({
           </form>
         </div>
       )}
+
+      <Link
+        href="/chat"
+        className={`card flex items-center gap-3 px-4 py-4 ${canGenerate ? "" : "pointer-events-none opacity-50"}`}
+      >
+        <Icon name="chat" className="h-6 w-6 text-accent" />
+        <span className="flex-1">
+          <span className="block font-medium">Describe my day</span>
+          <span className="text-xs text-muted">“Meeting at 10, drinks in Fitzroy, cycling home…”</span>
+        </span>
+        <Icon name="mic" className="h-5 w-5 text-muted" />
+      </Link>
 
       {error && <p className="text-sm text-warn">{error}</p>}
     </section>

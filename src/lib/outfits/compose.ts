@@ -43,7 +43,8 @@ Rules:
 - Use only the aliases listed (i1, i2…). Each item at most once. Slots are the item's category.
 - Slot limits: at most ${slotCap("top")} tops (e.g. a tee under an open shirt), ${slotCap("midlayer")} mid-layers, ${slotCap("underwear")} underwear pieces, ${slotCap("jewellery")} jewellery pieces; one of every other category.
 - context_kind is "out" unless the request is clearly about staying home or an intimate context. An "out" outfit must have a top (or one-piece), a bottom (or one-piece), shoes and underwear when owned.
-- Write like a knowledgeable friend: specific, warm and practical, with no filler. Refer to pieces by their names. Use Australian English.`;
+- Commit to your choices. If a piece is wrong for the conditions (suede in heavy rain, say), pick a different one instead of hedging.
+- Write like a knowledgeable friend: specific, warm and practical, with no filler. Refer to pieces by their names, and never mention aliases (i1, i12…) in any text you write. Use Australian English.`;
 
 function describe(alias: string, i: Item, now: number) {
   const parts = [
