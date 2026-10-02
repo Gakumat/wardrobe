@@ -8,6 +8,7 @@ import { tagItem, uploadAndTag } from "@/lib/items/upload";
 import type { ItemWithUrls } from "@/lib/schema/item";
 import { ItemEditor } from "./ItemEditor";
 import { ItemSummary } from "./ItemSummary";
+import { PhotoTools } from "./PhotoTools";
 
 export function ReviewQueue({ items }: { items: ItemWithUrls[] }) {
   const router = useRouter();
@@ -147,12 +148,17 @@ function ReviewCard({ item }: { item: ItemWithUrls }) {
             onChange={(e) => {
               const f = e.target.files?.[0];
               e.target.value = "";
-              if (f) run("retake", () => uploadAndTag(f, () => {}, item.id));
+              if (f) run("retake", () => uploadAndTag(f, () => {}, item));
             }}
           />
         </div>
       )}
       {error && <p className="px-3 pb-3 text-xs text-warn">{error}</p>}
+      {item.status === "review" && (
+        <div className="px-3 pb-3">
+          <PhotoTools item={item} />
+        </div>
+      )}
 
       {editing && (
         <div className="border-t border-line p-4">

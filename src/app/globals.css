@@ -24,7 +24,7 @@
     --accent: #8fb59d;
     --accent-ink: #10180f;
     --warn: #e8935e;
-    --flatlay: #24211e;
+    --flatlay: #ddd6ca; /* stays paper-light so cut-outs read true */
   }
 }
 

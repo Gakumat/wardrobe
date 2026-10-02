@@ -6,6 +6,7 @@ import { Icon } from "@/components/Icon";
 import { deleteItem } from "@/lib/items/actions";
 import type { ItemWithUrls } from "@/lib/schema/item";
 import { ItemEditor } from "./ItemEditor";
+import { PhotoTools } from "./PhotoTools";
 
 export function ItemDetail({ item }: { item: ItemWithUrls }) {
   const router = useRouter();
@@ -34,6 +35,7 @@ export function ItemDetail({ item }: { item: ItemWithUrls }) {
           </button>
         )}
       </div>
+      <PhotoTools item={item} />
 
       <ItemEditor
         key={item.updated_at}
